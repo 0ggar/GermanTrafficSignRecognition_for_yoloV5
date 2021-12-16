@@ -7,6 +7,8 @@ import xml.etree.ElementTree as ET
 
 save_root2 = "test_xmls"
 
+print("Conversion from CSV to XML for the Test.csv file ...")
+
 if not os.path.exists(save_root2):
     os.mkdir(save_root2)
 
@@ -71,3 +73,5 @@ with open('Test.csv', 'r', encoding='utf-8') as f_input_csv:
 
 for filename, entries in entries_by_filename.items():
     write_xml(save_root2, filename, entries)
+
+print("\tConversion from CSV to XML for the Test.csv file successfull ! \n")

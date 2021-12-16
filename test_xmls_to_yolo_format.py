@@ -211,10 +211,9 @@ def plot_random_image_with_bbox(annotations):
 
 
 if __name__ == '__main__':
+    print("Transformation from XML file to YoloV5 compatible format for TEST data ...")
     # convert and change the annotations of every file, return a list of file with annotation in txt format
     annotations = annote()
     # plot a randomize image with bbox in yolov5 format !
-    plot_random_image_with_bbox(annotations) 
-    #split_dataset()
-
-   
+    # plot_random_image_with_bbox(annotations) 
+    print("\tTransformation from XML file to YoloV5 compatible format for TEST data successfull ! \n")
