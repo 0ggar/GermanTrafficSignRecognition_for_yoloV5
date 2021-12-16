@@ -5,8 +5,8 @@ Train/
 *.csv
 
 # ignore folders created by the scripts
-annotations_test/
-annotations_train/
+annotations_*
+images_*
 test_xmls/
 train_xmls/
 
