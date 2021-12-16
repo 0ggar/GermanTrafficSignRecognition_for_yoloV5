@@ -1,6 +1,7 @@
 import shutil
 import os 
 from sklearn.model_selection import train_test_split
+import sys
 
 #Utility function to move images 
 def move_files_to_folder(list_of_files, destination_folder):
@@ -15,31 +16,26 @@ def move_files_to_folder(list_of_files, destination_folder):
 def copy_files_to_folder(list_of_files, destination_folder):
     for f in list_of_files:
         try:
+            print("trying :", f, "Into :", destination_folder)
             shutil.copy(f, destination_folder)
         except:
             print(f)
             assert False
 
-# before splitting the dataset, you need to regroup every images and annotations into a distinct common folder
-def prepare_architecture_for_splitting():
-    annotations_folder = 'annotations_/'
-    images_folder = 'images_/'
+
+annotations_folder = 'annotations_/'
+images_folder = 'images_/'
+
+# copy and rename function for annotations    
+def copy_and_rename_annotation():
     ann_test_folder_content = [os.path.join('annotations_test', x) for x in os.listdir('annotations_test') if x[-3:] == "txt"]
     ann_train_folder_content = [os.path.join('annotations_train', x) for x in os.listdir('annotations_train') if x[-3:] == "txt"]
-
-    if not os.path.exists(annotations_folder):
-        os.mkdir(annotations_folder)
-    
-    if not os.path.exists(images_folder):
-        os.mkdir(images_folder)
-    
-    print("Created images_ and annotations_ folder")
-
     copy_files_to_folder(ann_test_folder_content, annotations_folder)
     copy_files_to_folder(ann_train_folder_content, annotations_folder) 
-    print("Copying files successfull ! ")
+    print("Copying annotations files successfull ! ")
 
     ann_folder_content = [os.path.join('annotations_', x) for x in os.listdir('annotations_') if x[-3:] == "txt"]
+    ann_folder_content.sort()
 
     for count, filename in enumerate(ann_folder_content):
         dst = f"Annotation_{str(count)}.txt"
@@ -47,6 +43,68 @@ def prepare_architecture_for_splitting():
         os.rename(filename, dst)
     
     print("Renaiming annotations file successful !")
+
+
+
+# copy and rename function for images    
+def copy_and_rename_images():
+    img_test_content_folder = [os.path.join('Test', x) for x in os.listdir('Test') if x[-3:] == "png"]
+    
+    content = os.listdir('Train')
+    # remove Mac system file 
+    x = ".DS_Store" 
+    if x in content:
+        content.remove(x)
+
+    # Sort the list of subfolder to maintain the structure when renaiming
+    content.sort(key=int)
+
+    img_train_content_folder = []
+    for i in range(len(content)):
+        path = os.path.join('Train/', str(i))
+        leaf_folder_content = os.listdir(path)
+        leaf_folder_content.sort()
+        for x in leaf_folder_content:
+            img_train_content_folder.append(os.path.join(path, x))
+    
+    img_train_content_folder.sort()
+    
+    print(len(img_train_content_folder))
+            
+
+
+    copy_files_to_folder(img_test_content_folder, images_folder)
+    copy_files_to_folder(img_train_content_folder, images_folder) 
+    print("Copying images files successfull ! ")
+    
+    breakpoint
+
+    img_folder_content = [os.path.join('images_', x) for x in os.listdir('images_') if x[-3:] == "png"]
+    img_folder_content.sort(key=int)
+
+    # rename the images files properly
+    for count, filename in enumerate(img_folder_content):
+        dst = f"Image_{str(count)}.png"
+        dst = f"{images_folder}/{dst}"
+        os.rename(filename, dst)
+    
+    print("Renaiming images file successful !")
+
+
+
+
+
+# before splitting the dataset, you need to regroup every images and annotations into a distinct common folder
+def prepare_architecture_for_splitting():
+    if not os.path.exists(annotations_folder):
+        os.mkdir(annotations_folder)
+    if not os.path.exists(images_folder):
+        os.mkdir(images_folder)
+    print("Created images_ and annotations_ folder")
+
+    # copy_and_rename_annotation()
+    copy_and_rename_images()
+
 
 
 
