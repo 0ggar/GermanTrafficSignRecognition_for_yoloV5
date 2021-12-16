@@ -1,0 +1,14 @@
+# ignore all the files and folder from the 
+Meta/
+Test/
+Train/
+*.csv
+
+# ignore folders created by the scripts
+annotations_test/
+annotations_train/
+test_xmls/
+train_xmls/
+
+# ignore Mac config files
+.DS_Store
