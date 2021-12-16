@@ -33,4 +33,7 @@ When you run those files, if everything worked correctly a random image with her
 ## Third step
 
 All you have to do now, is split the dataset accordingly with the format that yolo want.   
+
+- Create a folder named `images_` and copy all the images from the dataset (located in `Test` and in every `Train/x` folder) into that folder
+
 Run the following script to do so `split_dataset.py`
