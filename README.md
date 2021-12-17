@@ -9,6 +9,13 @@ Then, with these scripts, you will be able to work with the dataset and convert 
 
 # How it works
 
+## UPDATE
+
+I've created a very simple shell script that does everything for you (assuming that you already have downloaded the dataset)  
+Just make sure you have the right to execute the script and then run `work.sh` :)
+
+The following is just for you if you want to better understand what's going on. 
+
 ## First step 
 
 Working fine Python 3.9.9, not tested with previous versions.  
