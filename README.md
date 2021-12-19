@@ -22,7 +22,7 @@ Working fine Python 3.9.9, not tested with previous versions.
 
 Ugly files with redondant code but it works fine :)
 
-- download sklearn lib
+- download scikit-learn
 
 - use the scripts that convert CSV file into XML (`csv_to_xml_for_test.py` and `csv_to_xml_for_train.py`)  
 Those will create 2 new folders : `test_xmls` and `train_xmls`

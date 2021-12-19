@@ -1,3 +1,5 @@
+pip install -U scikit-learn
+
 python3 csv_to_xml_for_Test.py
 python3 csv_to_xml_for_Train.py
 
