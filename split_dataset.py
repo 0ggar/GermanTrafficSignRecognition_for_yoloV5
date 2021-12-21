@@ -53,7 +53,7 @@ def rename_annotations():
     ann_folder_content.sort()
 
     for count, filename in enumerate(ann_folder_content):
-        dst = f"Annotation_{str(count)}.txt"
+        dst = f"Immage_{str(count)}.txt"
         dst = f"{annotations_folder}/{dst}"
         os.rename(filename, dst)
     
