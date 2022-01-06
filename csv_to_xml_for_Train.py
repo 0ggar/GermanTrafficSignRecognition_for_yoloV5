@@ -18,6 +18,7 @@ def filename_to_str(f):
     filename_list[:6] = ''
     f = ''.join(filename_list)
     f = f.replace("/", "-")
+    f = f.split('-')[1]
     return f
 
 def write_xml(folder, filename, bbox_list):

@@ -10,6 +10,7 @@ images*
 labels*
 test_xmls/
 train_xmls/
+__pycache__/
 
 # ignore Mac config files
 .DS_Store
