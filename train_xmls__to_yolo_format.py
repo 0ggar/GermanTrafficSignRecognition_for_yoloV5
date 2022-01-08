@@ -1,13 +1,10 @@
 import os 
 import random
 import xml.etree.ElementTree as ET
-from xml.dom import minidom
 from tqdm import tqdm
 from PIL import Image, ImageDraw
 import numpy as np
 import matplotlib.pyplot as plt
-
-#random.seed(108)
 
 
 # Function to get the data from XML Annotation
@@ -192,7 +189,6 @@ def plot_random_image_with_bbox(annotations):
         annotation_list = [x.split(" ") for x in annotation_list]
         annotation_list = [[float(y) for y in x ] for x in annotation_list]
     
-
     ann_list = annotation_file.rsplit('-', 1)
     filename = ann_list[1]
     foldername = ann_list[0].rsplit('/', 1)[1]
@@ -212,8 +208,11 @@ def plot_random_image_with_bbox(annotations):
 
 if __name__ == '__main__':
     print("Transformation from XML file to YoloV5 compatible format for TRAIN data ...")
+
     # convert and change the annotations of every file, return a list of file with annotation in txt format
     annotations = annote()
-    # plot a randomize image with bbox in yolov5 format !
+
+    # Uncomment the following line to plot a randomize image with bbox in yolov5 format ! 
     # plot_random_image_with_bbox(annotations) 
+    
     print("\tTransformation from XML file to YoloV5 compatible format for TRAIN data successfull ! \n")

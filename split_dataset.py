@@ -4,6 +4,7 @@ import os
 from sklearn.model_selection import train_test_split
 import re
 from natsort import natsorted
+from tqdm import tqdm
 
 
 annotations_folder = 'annotations_/'
@@ -13,7 +14,7 @@ images_folder = 'images_/'
 
 #Utility function to move images 
 def move_files_to_folder(list_of_files, destination_folder):
-    for f in list_of_files:
+    for f in tqdm(list_of_files):
         try:
             shutil.move(f, destination_folder)
         except:
@@ -22,7 +23,7 @@ def move_files_to_folder(list_of_files, destination_folder):
 
 #Utility function to copy images 
 def copy_files_to_folder(list_of_files, destination_folder):
-    for f in list_of_files:
+    for f in tqdm(list_of_files):
         try:
             shutil.copy(f, destination_folder)
         except:
@@ -37,8 +38,8 @@ def rename_images():
     img_folder_content = [os.path.join('images_', x) for x in os.listdir('images_') if x[-3:] == "png"]
     img_folder_content = natsorted(img_folder_content)
 
-    for filename in img_folder_content:
-        filename_only = filename.split('/')[1]
+    for filename in tqdm(img_folder_content):
+        filename_only = filename.split('/')[1]     #change the '/' to '\\' if you are on Windows
         dst = f"Image_{filename_only}"
         dst = f"{images_folder}/{dst}"
         os.rename(filename, dst)
@@ -53,8 +54,8 @@ def rename_annotations():
     ann_folder_content = [os.path.join('annotations_', x) for x in os.listdir('annotations_') if x[-3:] == "txt"]
     ann_folder_content = natsorted(ann_folder_content)
 
-    for filename in ann_folder_content:
-        filename_only = filename.split('/')[1]
+    for filename in tqdm(ann_folder_content):
+        filename_only = filename.split('/')[1]     #change the '/' to '\\' if you are on Windows
         dst = f"Image_{filename_only}"
         dst = f"{annotations_folder}/{dst}"
         os.rename(filename, dst)
@@ -146,7 +147,9 @@ def split_dataset():
     annotations.sort()
 
     # Split the dataset into train-valid-test splits 
+    # 20% of all images goes into val_images, the rest goes into train_images (80%) - the same goes for the annotations
     train_images, val_images, train_annotations, val_annotations = train_test_split(images, annotations, test_size = 0.2, random_state = 1)
+    # half of the val_images goes into test_images, the rest goes into val_images again - the same goes for the annotations
     val_images, test_images, val_annotations, test_annotations = train_test_split(val_images, val_annotations, test_size = 0.5, random_state = 1)
 
     # create new folders to split the dataset accordingly
