@@ -200,7 +200,4 @@ if __name__ == '__main__':
     
     prepare_architecture_for_splitting()
 
-    # rename_annotations()
-    # rename_images()
-
     split_dataset()
