@@ -12,6 +12,7 @@ Then, with these scripts, you will be able to work with the dataset and convert 
 ## UPDATE
 
 I've created a very simple shell script that does everything for you (assuming that you already have downloaded the dataset)  
+Make sure you are in a python venv, otherwise the script will install the dependencies globally.   
 Just make sure you have the right to execute the script and then run `work.sh` :)
 
 The following is just for you if you want to better understand what's going on. 
@@ -23,6 +24,8 @@ Working fine Python 3.9.9, not tested with previous versions.
 Ugly files with redondant code but it works fine :)
 
 - download scikit-learn
+
+- download natsort
 
 - use the scripts that convert CSV file into XML (`csv_to_xml_for_test.py` and `csv_to_xml_for_train.py`)  
 Those will create 2 new folders : `test_xmls` and `train_xmls`
