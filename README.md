@@ -46,4 +46,8 @@ All you have to do now, is split the dataset accordingly with the format that yo
 
 - Create a folder named `images_` and copy all the images from the dataset (located in `Test` and in every `Train/x` folder) into that folder
 
+- Create a folder named `annotations_` and copy all the labels into it  
+
+- Create all the architecture needed for YoloV5
+
 Run the following script to do so `split_dataset.py`
