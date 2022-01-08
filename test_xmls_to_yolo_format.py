@@ -1,17 +1,10 @@
-import torch
-#from IPython.display import Image  # for displaying images
 import os 
 import random
-import shutil
-from sklearn.model_selection import train_test_split
 import xml.etree.ElementTree as ET
-from xml.dom import minidom
 from tqdm import tqdm
 from PIL import Image, ImageDraw
 import numpy as np
 import matplotlib.pyplot as plt
-
-#random.seed(108)
 
 
 # Function to get the data from XML Annotation
@@ -190,7 +183,6 @@ def plot_bounding_box(image, annotation_list):
 def plot_random_image_with_bbox(annotations):
      # Get any random annotation file 
     annotation_file = random.choice(annotations)
-    print(annotation_file)
     
     with open(annotation_file, "r") as file:
         annotation_list = file.read().split("\n")[:-1]
@@ -212,8 +204,11 @@ def plot_random_image_with_bbox(annotations):
 
 if __name__ == '__main__':
     print("Transformation from XML file to YoloV5 compatible format for TEST data ...")
+
     # convert and change the annotations of every file, return a list of file with annotation in txt format
     annotations = annote()
-    # plot a randomize image with bbox in yolov5 format !
+
+    # Uncomment the following line to plot a randomize image with bbox in yolov5 format ! 
     # plot_random_image_with_bbox(annotations) 
+
     print("\tTransformation from XML file to YoloV5 compatible format for TEST data successfull ! \n")

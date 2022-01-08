@@ -3,7 +3,8 @@ import shutil
 import os 
 from sklearn.model_selection import train_test_split
 import re
-
+from natsort import natsorted
+from tqdm import tqdm
 
 
 annotations_folder = 'annotations_/'
@@ -13,7 +14,7 @@ images_folder = 'images_/'
 
 #Utility function to move images 
 def move_files_to_folder(list_of_files, destination_folder):
-    for f in list_of_files:
+    for f in tqdm(list_of_files):
         try:
             shutil.move(f, destination_folder)
         except:
@@ -22,7 +23,7 @@ def move_files_to_folder(list_of_files, destination_folder):
 
 #Utility function to copy images 
 def copy_files_to_folder(list_of_files, destination_folder):
-    for f in list_of_files:
+    for f in tqdm(list_of_files):
         try:
             shutil.copy(f, destination_folder)
         except:
@@ -31,14 +32,15 @@ def copy_files_to_folder(list_of_files, destination_folder):
 
 
 # rename the images files properly
-def rename_image(): 
+def rename_images(): 
     print("Renaming images in progress ...")
     
     img_folder_content = [os.path.join('images_', x) for x in os.listdir('images_') if x[-3:] == "png"]
-    img_folder_content.sort()
+    img_folder_content = natsorted(img_folder_content)
 
-    for count, filename in enumerate(img_folder_content):
-        dst = f"Image_{str(count)}.png"
+    for filename in tqdm(img_folder_content):
+        filename_only = filename.split('/')[1]     #change the '/' to '\\' if you are on Windows
+        dst = f"Image_{filename_only}"
         dst = f"{images_folder}/{dst}"
         os.rename(filename, dst)
     
@@ -50,10 +52,11 @@ def rename_annotations():
     print("Renaming annotations in progress ...")
 
     ann_folder_content = [os.path.join('annotations_', x) for x in os.listdir('annotations_') if x[-3:] == "txt"]
-    ann_folder_content.sort()
+    ann_folder_content = natsorted(ann_folder_content)
 
-    for count, filename in enumerate(ann_folder_content):
-        dst = f"Image_{str(count)}.txt"
+    for filename in tqdm(ann_folder_content):
+        filename_only = filename.split('/')[1]     #change the '/' to '\\' if you are on Windows
+        dst = f"Image_{filename_only}"
         dst = f"{annotations_folder}/{dst}"
         os.rename(filename, dst)
     
@@ -96,7 +99,7 @@ def copy_and_rename_images():
         for x in leaf_folder_content:
             img_train_content_folder.append(os.path.join(path, x))
     
-    img_train_content_folder.sort()
+    # img_train_content_folder.sort()
 
     img_test_content_folder = [os.path.join('Test', x) for x in os.listdir('Test') if x[-3:] == "png"]
     
@@ -108,7 +111,7 @@ def copy_and_rename_images():
     copy_files_to_folder(img_train_content_folder, images_folder) 
     print("\tCopying images from Train/ successfull ! \n")
        
-    rename_image()
+    rename_images()
 
 
     
@@ -144,11 +147,13 @@ def split_dataset():
     annotations.sort()
 
     # Split the dataset into train-valid-test splits 
+    # 20% of all images goes into val_images, the rest goes into train_images (80%) - the same goes for the annotations
     train_images, val_images, train_annotations, val_annotations = train_test_split(images, annotations, test_size = 0.2, random_state = 1)
+    # half of the val_images goes into test_images, the rest goes into val_images again - the same goes for the annotations
     val_images, test_images, val_annotations, test_annotations = train_test_split(val_images, val_annotations, test_size = 0.5, random_state = 1)
 
-    print("Creating folders ...")
     # create new folders to split the dataset accordingly
+    print("Creating folders ...")
     i_train = 'images/train'
     i_val = 'images/val'
     i_test = 'images/test'
@@ -166,6 +171,7 @@ def split_dataset():
     print("\tCreating folders successfull ! \n")
 
     print("Moving images and annotations files to their appropriate folder ...")
+
     # move files accordingly to the split they belong
     move_files_to_folder(train_images, i_train)
     move_files_to_folder(val_images, i_val)
@@ -191,5 +197,7 @@ def split_dataset():
 
 
 if __name__ == '__main__':
+    
     prepare_architecture_for_splitting()
+
     split_dataset()
