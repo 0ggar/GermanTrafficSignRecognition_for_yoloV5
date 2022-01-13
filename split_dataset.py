@@ -180,6 +180,10 @@ def split_dataset():
     move_files_to_folder(val_annotations, a_val)
     move_files_to_folder(test_annotations, a_test)
 
+    print("\tMoving successful ! \n")
+
+    print("Deleting temporary folders ... ")
+
     if os.path.exists('images_'):
         os.rmdir('images_')
     if os.path.exists('annotations_'):

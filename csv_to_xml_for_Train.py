@@ -1,6 +1,7 @@
 from collections import defaultdict
 import os
 import csv
+from tqdm import tqdm
 
 from xml.etree.ElementTree import parse, Element, SubElement, ElementTree
 import xml.etree.ElementTree as ET
@@ -74,7 +75,7 @@ with open('Train.csv', 'r', encoding='utf-8') as f_input_csv:
         entries_by_filename[filename].append(row) #for whole csv to xml
 
 
-for filename, entries in entries_by_filename.items():   
+for filename, entries in tqdm(entries_by_filename.items()):   
     write_xml(save_root2, filename, entries)
 
 print("\tConversion from CSV to XML for the Train.csv file successfull ! \n")
