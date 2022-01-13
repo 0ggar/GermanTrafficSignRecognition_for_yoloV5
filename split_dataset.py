@@ -197,7 +197,9 @@ def split_dataset():
     if os.path.exists('train_xmls'):
         shutil.rmtree('train_xmls')
 
-    print("\t Done splitting the dataset !!!! \n")
+    print("\t Done splitting the dataset !!!! \n ")
+
+    print("\n\t \N{grinning face}\N{grinning face}\N{grinning face}\N{grinning face} \n")
 
 
 if __name__ == '__main__':
