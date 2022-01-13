@@ -21,6 +21,8 @@ The following is just for you if you want to better understand what's going on.
 
 Working fine Python 3.9.9, not tested with previous versions.  
 
+Make sure you are in a virtual python environment before starting, otherwise it may cause problems installing the necessary libraries...  
+
 Ugly files with redondant code but it works fine :)
 
 - download scikit-learn
